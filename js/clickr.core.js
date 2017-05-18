@@ -7,6 +7,7 @@
  *
  * @return {object}
  */
+// eslint-disable-next-line no-unused-vars
 var Clickr = (function(list) {
     'use strict';
 
@@ -43,7 +44,7 @@ var Clickr = (function(list) {
      * Run a function, and check if the results from the function are the same as expected.
      */
     function check() {
-        var values = eval(globals.step.fn);
+        var values = eval(globals.step.function);
 
         if(globals.step.check) {
             $.each(globals.step.check, function(key, value) {
@@ -100,7 +101,7 @@ var Clickr = (function(list) {
             setTimeout(click, globals.timeout);
         }
 
-        if(globals.step.fn && globals.step.check) {
+        if(globals.step.function && globals.step.check) {
             setTimeout(check, globals.timeout);
         }
 

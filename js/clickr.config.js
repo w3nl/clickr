@@ -3,7 +3,7 @@ var list = [
         click: '.js-test'
     },
     {
-        fn: 'Test()',
+        function: 'Test()',
         check: {
             example: 'example value'
         }
