@@ -61,6 +61,23 @@ var Clickr = (function(list) {
     }
 
     /**
+     * Fill an input with a value.
+     */
+    function input() {
+        if($(globals.step.input).length == 0) {
+            console.log('%c input ' + globals.step.input, 'color: #f00');
+            globals.results.fail++;
+            step();
+
+            return;
+        }
+
+        console.log('%c input ' + globals.step.input, 'color: #0f0');
+        $(globals.step.input).val(globals.step.value);
+        step();
+    }
+
+    /**
      * Check a new step.
      */
     function step() {
@@ -82,8 +99,13 @@ var Clickr = (function(list) {
         if(globals.step.click) {
             setTimeout(click, globals.timeout);
         }
+
         if(globals.step.fn && globals.step.check) {
             setTimeout(check, globals.timeout);
+        }
+
+        if(globals.step.input && globals.step.value) {
+            setTimeout(input, globals.timeout);
         }
     }
 
