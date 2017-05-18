@@ -25,14 +25,14 @@ var Clickr = (function(list) {
      */
     function click() {
         if($(globals.step.click).length == 0) {
-            console.log('%c click ' + globals.step.click, 'color: #f00');
+            console.log('%c Click ' + globals.step.click, 'color: #f00');
             globals.results.fail++;
             step();
 
             return;
         }
 
-        console.log('%c click ' + globals.step.click, 'color: #0f0');
+        console.log('%c Click ' + globals.step.click, 'color: #0f0');
         $(globals.step.click).on('click', function() {
             globals.results.ok++;
             step();
@@ -44,18 +44,47 @@ var Clickr = (function(list) {
      * Run a function, and check if the results from the function are the same as expected.
      */
     function check() {
-        var values = eval(globals.step.function);
+        var fn = eval(globals.step.function);
+        var values;
+
+        if(fn) {
+            values = fn();
+            globals.results.ok++;
+            console.log('%c Function ' + globals.step.function, 'color: #0f0');
+        } else {
+            globals.results.fail++;
+            console.log('%c Function ' + globals.step.function, 'color: #f00');
+        }
 
         if(globals.step.check) {
             $.each(globals.step.check, function(key, value) {
                 if(values[key] == value) {
                     globals.results.ok++;
-                    console.log('%c OK ' + key, 'color: #0f0');
+                    console.log('%c Check ' + key, 'color: #0f0');
                 } else {
                     globals.results.fail++;
-                    console.log('%c FAIL ' + key + ' (' + values[key] + '|' + value + ')', 'color: #f00');
+                    console.log('%c Check ' + key + ' (' + values[key] + '|' + value + ')', 'color: #f00');
                 }
             });
+        }
+
+        step();
+    }
+
+    /**
+     * Run a function.
+     */
+    function fn() {
+        var fn = eval(globals.step.function);
+        var values;
+
+        if(fn) {
+            values = fn();
+            globals.results.ok++;
+            console.log('%c Function ' + globals.step.function, 'color: #0f0');
+        } else {
+            globals.results.fail++;
+            console.log('%c Function ' + globals.step.function, 'color: #f00');
         }
 
         step();
@@ -66,14 +95,14 @@ var Clickr = (function(list) {
      */
     function input() {
         if($(globals.step.input).length == 0) {
-            console.log('%c input ' + globals.step.input, 'color: #f00');
+            console.log('%c Input ' + globals.step.input, 'color: #f00');
             globals.results.fail++;
             step();
 
             return;
         }
 
-        console.log('%c input ' + globals.step.input, 'color: #0f0');
+        console.log('%c Input ' + globals.step.input, 'color: #0f0');
         $(globals.step.input).val(globals.step.value);
         step();
     }
@@ -103,6 +132,8 @@ var Clickr = (function(list) {
 
         if(globals.step.function && globals.step.check) {
             setTimeout(check, globals.timeout);
+        } else if(globals.step.function) {
+            setTimeout(fn, globals.timeout);
         }
 
         if(globals.step.input && globals.step.value) {
