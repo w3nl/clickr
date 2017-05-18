@@ -95,6 +95,8 @@ var Clickr = (function(list) {
      * Fill an input with a value.
      */
     function input() {
+        var value;
+
         if($(globals.step.input).length == 0) {
             console.log('%c Input ' + globals.step.input, 'color: #f00');
             globals.results.fail++;
@@ -103,8 +105,27 @@ var Clickr = (function(list) {
             return;
         }
 
-        console.log('%c Input ' + globals.step.input, 'color: #0f0');
-        $(globals.step.input).val(globals.step.value);
+        if(globals.step.check) {
+            value = $(globals.step.input).val();
+
+            if(value == globals.step.check) {
+                console.log('%c Input check ' + globals.step.input, 'color: #0f0');
+                globals.results.ok++;
+            } else {
+                console.log(
+                    '%c Input check ' + globals.step.input +
+                    ' (' + value + '|' + globals.step.check + ')',
+                    'color: #f00'
+                );
+                globals.results.fail++;
+            }
+        }
+
+        if(globals.step.value) {
+            $(globals.step.input).val(globals.step.value);
+            console.log('%c Input set ' + globals.step.input, 'color: #0f0');
+            globals.results.ok++;
+        }
         step();
     }
 
@@ -142,7 +163,7 @@ var Clickr = (function(list) {
             setTimeout(check, timeout);
         }
 
-        if(globals.step.input && globals.step.value) {
+        if(globals.step.input) {
             setTimeout(input, timeout);
         }
     }
