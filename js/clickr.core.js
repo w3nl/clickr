@@ -112,6 +112,8 @@ var Clickr = (function(list) {
      * Check a new step.
      */
     function step() {
+        var timeout = globals.timeout;
+
         if(globals.list.length < 1) {
             globals.step = null;
             console.log(
@@ -128,16 +130,20 @@ var Clickr = (function(list) {
         globals.step = globals.list.shift();
         globals.log.push(globals.step);
 
+        if(globals.step.delay) {
+            timeout = globals.step.delay;
+        }
+
         if(globals.step.click) {
-            setTimeout(click, globals.timeout);
+            setTimeout(click, timeout);
         }
 
         if(globals.step.function) {
-            setTimeout(check, globals.timeout);
+            setTimeout(check, timeout);
         }
 
         if(globals.step.input && globals.step.value) {
-            setTimeout(input, globals.timeout);
+            setTimeout(input, timeout);
         }
     }
 

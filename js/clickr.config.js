@@ -4,6 +4,10 @@ var list = [
     },
     {
         function: 'Test',
+        delay: 2000,
+        params: [
+            'param value'
+        ],
         check: {
             example: 'example value'
         }
