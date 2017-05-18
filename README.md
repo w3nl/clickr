@@ -1,0 +1,2 @@
+# clickr
+Automated clicker
