@@ -1,0 +1,21 @@
+{
+    "name": "clickr",
+    "description": "Automated clicker",
+    "main": "js/clickr.core.js",
+    "authors": [
+        "Pieter Wigboldus"
+    ],
+    "license": "GPL-3.0",
+    "keywords": [
+        "javascript"
+    ],
+    "homepage": "https://github.com/w3nl/clickr",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "moduleType": "globals"
+}

@@ -1,0 +1,25 @@
+{
+    "name": "clickr",
+    "version": "0.0.1",
+    "description": "Automated clicker",
+    "files": [
+        "js/clickr.core.js"
+    ],
+    "main": "js/clickr.core.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/w3nl/clickr"
+    },
+    "keywords": [
+        "javascript"
+    ],
+    "author": "Pieter Wigboldus",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/w3nl/clickr/issues"
+    },
+    "homepage": "https://github.com/w3nl/clickr#readme",
+    "dependencies": {
+        "jquery": "3.2.1"
+    }
+}
