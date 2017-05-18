@@ -7,17 +7,20 @@
  *
  * @return {object}
  */
+
 // eslint-disable-next-line no-unused-vars
 var Clickr = (function(list) {
     'use strict';
 
     var globals = {
+        list:    list,
         step:    null,
         timeout: 100,
         results: {
             ok:   0,
             fail: 0
-        }
+        },
+        log:      []
     };
 
     /**
@@ -44,17 +47,7 @@ var Clickr = (function(list) {
      * Run a function, and check if the results from the function are the same as expected.
      */
     function check() {
-        var fn = eval(globals.step.function);
-        var values;
-
-        if(fn) {
-            values = fn();
-            globals.results.ok++;
-            console.log('%c Function ' + globals.step.function, 'color: #0f0');
-        } else {
-            globals.results.fail++;
-            console.log('%c Function ' + globals.step.function, 'color: #f00');
-        }
+        var values = fn();
 
         if(globals.step.check) {
             $.each(globals.step.check, function(key, value) {
@@ -73,13 +66,21 @@ var Clickr = (function(list) {
 
     /**
      * Run a function.
+     *
+     * @return {object}
      */
     function fn() {
         var fn = eval(globals.step.function);
         var values;
 
         if(fn) {
-            values = fn();
+            if(globals.step.params) {
+                values = fn.apply(this, globals.step.params);
+            } else {
+                values = fn();
+            }
+
+            globals.log.last().values = values;
             globals.results.ok++;
             console.log('%c Function ' + globals.step.function, 'color: #0f0');
         } else {
@@ -87,7 +88,7 @@ var Clickr = (function(list) {
             console.log('%c Function ' + globals.step.function, 'color: #f00');
         }
 
-        step();
+        return values;
     }
 
     /**
@@ -111,7 +112,7 @@ var Clickr = (function(list) {
      * Check a new step.
      */
     function step() {
-        if(list.length < 1) {
+        if(globals.list.length < 1) {
             globals.step = null;
             console.log(
                 'Results: ' +
@@ -124,16 +125,15 @@ var Clickr = (function(list) {
             return;
         }
 
-        globals.step = list.shift();
+        globals.step = globals.list.shift();
+        globals.log.push(globals.step);
 
         if(globals.step.click) {
             setTimeout(click, globals.timeout);
         }
 
-        if(globals.step.function && globals.step.check) {
+        if(globals.step.function) {
             setTimeout(check, globals.timeout);
-        } else if(globals.step.function) {
-            setTimeout(fn, globals.timeout);
         }
 
         if(globals.step.input && globals.step.value) {
@@ -147,3 +147,7 @@ var Clickr = (function(list) {
         click: click
     };
 });
+
+Array.prototype.last = function() {
+    return this[this.length - 1];
+};
