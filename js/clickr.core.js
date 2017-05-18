@@ -35,6 +35,9 @@ var Clickr = (function(list) {
             return;
         }
 
+        globals.step.scrollto = globals.step.click;
+        scrollto();
+
         console.log('%c Click ' + globals.step.click, 'color: #0f0');
         $(globals.step.click).on('click', function() {
             globals.results.ok++;
@@ -129,6 +132,10 @@ var Clickr = (function(list) {
         step();
     }
 
+    function scrollto() {
+        $(globals.step.scrollto).get(0).scrollIntoView();
+    }
+
     /**
      * Check a new step.
      */
@@ -153,6 +160,10 @@ var Clickr = (function(list) {
 
         if(globals.step.delay) {
             timeout = globals.step.delay;
+        }
+
+        if(globals.step.scrollto) {
+            scrollto();
         }
 
         if(globals.step.click) {
