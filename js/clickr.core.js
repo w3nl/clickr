@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 /**
- * Add charts to the page with ajax.
+ * Automated clicker
  *
  * @param {object} list
  *
