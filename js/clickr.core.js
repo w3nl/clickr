@@ -132,6 +132,9 @@ var Clickr = (function(list) {
         step();
     }
 
+    /**
+     * Scroll to an element.
+     */
     function scrollto() {
         $(globals.step.scrollto).get(0).scrollIntoView();
     }
