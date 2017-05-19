@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 /**
- * Automated clicker
+ * Automated clicker.
  *
  * @param {object} list
  *
@@ -9,7 +9,7 @@
  */
 
 // eslint-disable-next-line no-unused-vars
-var Clickr = (function(list) {
+var Clickr = (function(list, config) {
     'use strict';
 
     var globals = {
@@ -22,6 +22,8 @@ var Clickr = (function(list) {
         },
         log:      []
     };
+
+    globals = $.extend({}, globals, config || {});
 
     /**
      * Click on an element.
@@ -184,8 +186,8 @@ var Clickr = (function(list) {
 
     return {
         globals: globals,
-        step: step,
-        click: click
+        step:    step,
+        click:   click
     };
 });
 
