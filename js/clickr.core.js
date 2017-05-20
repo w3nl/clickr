@@ -75,14 +75,19 @@ var Clickr = (function(list, config) {
      * @return {object}
      */
     function fn() {
-        var fn = eval(globals.step.function);
+        var stepFunction;
         var values;
 
-        if(fn) {
+        stepFunction = globals.step.function;
+        if(typeof stepFunction == 'string') {
+            stepFunction = eval(stepFunction);
+        }
+
+        if(stepFunction) {
             if(globals.step.params) {
-                values = fn.apply(this, globals.step.params);
+                values = stepFunction.apply(this, globals.step.params);
             } else {
-                values = fn();
+                values = stepFunction();
             }
 
             globals.log.last().values = values;

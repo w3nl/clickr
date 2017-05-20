@@ -8,10 +8,10 @@ var list = [
         value: 'test@example.com'
     },
     {
-        function: 'Test',
+        function: testFunction,
         delay: 2000,
         params: [
-            'param value'
+            'example value'
         ],
         check: {
             example: 'example value'
@@ -20,5 +20,18 @@ var list = [
 ];
 
 var test = new Clickr(list);
+
+/**
+ * An example function.
+ *
+ * @param {string} exampleValue
+ *
+ * @return {object}
+ */
+function testFunction(exampleValue) {
+    return {
+        example: exampleValue
+    };
+}
 
 test.step();
