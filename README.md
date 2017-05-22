@@ -52,4 +52,4 @@ The last test will scroll to an element, and click on an element.
 
 ## Results
 When you run a test, you receive in your Devtools console a result, e.g.
-![Clickr result](/content/images/2017/05/Schermafdruk-van-2017-05-22-16-36-18.png)
+![Clickr result](https://hckr.news/content/images/2017/05/Schermafdruk-van-2017-05-22-16-36-18.png)
