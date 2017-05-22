@@ -22,7 +22,8 @@ var list = [
         value: 'test@example.com'
     },
     {
-        click: 'button[form=login]:eq(0)'
+        event: 'button[form=login]:eq(0)',
+        type:  'click'
     }
 ];
 
@@ -47,8 +48,8 @@ The next test will search for input elements.
 You can check if the value is the same you expected, and you can set a new value.
 Both are optional.
 
-## Click
-The last test will scroll to an element, and click on an element.
+## Event
+The last test will scroll to an element, and trigger an event on an element, e.g. click.
 
 ## Results
 When you run a test, you receive in your Devtools console a result, e.g.

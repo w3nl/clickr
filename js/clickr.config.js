@@ -1,6 +1,6 @@
 var list = [
     {
-        click: '.js-test'
+        event: '.js-test'
     },
     {
         input: 'input[name=email]:eq(0)',

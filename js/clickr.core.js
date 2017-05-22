@@ -26,26 +26,32 @@ var Clickr = (function(list, config) {
     globals = $.extend({}, globals, config || {});
 
     /**
-     * Click on an element.
+     * Trigger an event on an element.
      */
-    function click() {
-        if($(globals.step.click).length == 0) {
-            console.log('%c Click ' + globals.step.click, 'color: #f00');
+    function event() {
+        var eventType = 'click';
+
+        if(globals.step.type) {
+            eventType = globals.step.type;
+        }
+
+        if($(globals.step.event).length == 0) {
+            console.log('%c Event ' + eventType + ' ' + globals.step.event, 'color: #f00');
             globals.results.fail++;
             step();
 
             return;
         }
 
-        globals.step.scrollto = globals.step.click;
+        globals.step.scrollto = globals.step.event;
         scrollto();
 
-        console.log('%c Click ' + globals.step.click, 'color: #0f0');
-        $(globals.step.click).on('click', function() {
+        console.log('%c Event ' + eventType + ' ' + globals.step.event, 'color: #0f0');
+        $(globals.step.event).on(eventType, function() {
             globals.results.ok++;
             step();
         });
-        $(globals.step.click).click();
+        $(globals.step.event).trigger(eventType);
     }
 
     /**
@@ -176,8 +182,8 @@ var Clickr = (function(list, config) {
             scrollto();
         }
 
-        if(globals.step.click) {
-            setTimeout(click, timeout);
+        if(globals.step.event) {
+            setTimeout(event, timeout);
         }
 
         if(globals.step.function) {
@@ -192,7 +198,7 @@ var Clickr = (function(list, config) {
     return {
         globals: globals,
         step:    step,
-        click:   click
+        event:   event
     };
 });
 
