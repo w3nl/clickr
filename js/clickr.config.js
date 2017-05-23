@@ -34,4 +34,4 @@ function testFunction(exampleValue) {
     };
 }
 
-test.step();
+test.run();

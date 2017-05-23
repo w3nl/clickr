@@ -196,9 +196,13 @@ var Clickr = (function(list, config) {
     }
 
     return {
-        globals: globals,
-        step:    step,
-        event:   event
+        globals:  globals,
+        step:     step,
+        run:      step,
+        scrollto: scrollto,
+        event:    event,
+        function: check,
+        input:    input
     };
 });
 

@@ -29,7 +29,7 @@ var list = [
 
 var test = new Clickr(list);
 
-test.step();
+test.run();
 
 ```
 
