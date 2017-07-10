@@ -182,12 +182,12 @@ var Clickr = (function(list, config) {
             scrollto();
         }
 
-        if(globals.step.event) {
-            setTimeout(event, timeout);
-        }
-
         if(globals.step.function) {
             setTimeout(check, timeout);
+        }
+
+        if(globals.step.event) {
+            setTimeout(event, timeout);
         }
 
         if(globals.step.input) {
