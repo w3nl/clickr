@@ -23,7 +23,7 @@ var Clickr = (function(list, config) {
         log:      []
     };
 
-    globals = $.extend({}, globals, config || {});
+    globals = Object.assign({}, globals, config || {});
 
     /**
      * Trigger an event on an element.
@@ -35,7 +35,7 @@ var Clickr = (function(list, config) {
             eventType = globals.step.type;
         }
 
-        if($(globals.step.event).length == 0) {
+        if(document.querySelector(globals.step.event)) {
             console.log('%c Event ' + eventType + ' ' + globals.step.event, 'color: #f00');
             globals.results.fail++;
             step();
@@ -47,11 +47,11 @@ var Clickr = (function(list, config) {
         scrollto();
 
         console.log('%c Event ' + eventType + ' ' + globals.step.event, 'color: #0f0');
-        $(globals.step.event).on(eventType, function() {
+        document.querySelector(globals.step.event).addEventListener(eventType, function() {
             globals.results.ok++;
             step();
         });
-        $(globals.step.event).trigger(eventType);
+        document.querySelector(globals.step.event).dispatchEvent(eventType);
     }
 
     /**
@@ -59,9 +59,13 @@ var Clickr = (function(list, config) {
      */
     function check() {
         var values = fn();
+        var value;
+        var key;
 
         if(globals.step.check) {
-            $.each(globals.step.check, function(key, value) {
+            for (key in globals.step.check) {
+                value = globals.step.check[key];
+
                 if(values[key] == value) {
                     globals.results.ok++;
                     console.log('%c Check ' + key, 'color: #0f0');
@@ -69,7 +73,7 @@ var Clickr = (function(list, config) {
                     globals.results.fail++;
                     console.log('%c Check ' + key + ' (' + values[key] + '|' + value + ')', 'color: #f00');
                 }
-            });
+            }
         }
 
         step();
@@ -86,7 +90,7 @@ var Clickr = (function(list, config) {
 
         stepFunction = globals.step.function;
         if(typeof stepFunction == 'string') {
-            stepFunction = eval(stepFunction);
+            stepFunction = window[stepFunction];
         }
 
         if(stepFunction) {
@@ -113,7 +117,7 @@ var Clickr = (function(list, config) {
     function input() {
         var value;
 
-        if($(globals.step.input).length == 0) {
+        if(document.querySelector(globals.step.input)) {
             console.log('%c Input ' + globals.step.input, 'color: #f00');
             globals.results.fail++;
             step();
@@ -122,7 +126,7 @@ var Clickr = (function(list, config) {
         }
 
         if(globals.step.check) {
-            value = $(globals.step.input).val();
+            value = document.querySelector(globals.step.input).value;
 
             if(value == globals.step.check) {
                 console.log('%c Input check ' + globals.step.input, 'color: #0f0');
@@ -138,7 +142,7 @@ var Clickr = (function(list, config) {
         }
 
         if(globals.step.value) {
-            $(globals.step.input).val(globals.step.value);
+            document.querySelector(globals.step.input).value = globals.step.value;
             console.log('%c Input set ' + globals.step.input, 'color: #0f0');
             globals.results.ok++;
         }
@@ -149,7 +153,7 @@ var Clickr = (function(list, config) {
      * Scroll to an element.
      */
     function scrollto() {
-        $(globals.step.scrollto).get(0).scrollIntoView();
+        // document.querySelector(globals.step.scrollto).scrollIntoView();
     }
 
     /**
@@ -182,16 +186,16 @@ var Clickr = (function(list, config) {
             scrollto();
         }
 
-        if(globals.step.event) {
-            setTimeout(event, timeout);
-        }
-
         if(globals.step.function) {
             setTimeout(check, timeout);
         }
 
         if(globals.step.input) {
             setTimeout(input, timeout);
+        }
+
+        if(globals.step.event) {
+            setTimeout(event, timeout);
         }
     }
 
