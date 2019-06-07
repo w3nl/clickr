@@ -1,6 +1,6 @@
 {
     "name": "clickr",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Automated clicker",
     "files": [
         "js/clickr.core.js"
@@ -20,6 +20,6 @@
     },
     "homepage": "https://github.com/w3nl/clickr#readme",
     "dependencies": {
-        "jquery": "3.2.1"
+        "jquery": "^3.4.1"
     }
 }
